@@ -23,13 +23,19 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        return $panel
+        return $panel 
             ->default()
             ->id('admin')
             ->path('admin')
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->login()
             ->colors([
-                'primary' => Color::Amber,
+            'primary' => Color::Teal,      // Color principal (botones, enlaces, etc.)
+            'danger'  => Color::Rose,
+            'gray'    => Color::Slate,
+            'info'    => Color::Sky,
+            'success' => Color::Emerald,
+            'warning' => Color::Amber,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')

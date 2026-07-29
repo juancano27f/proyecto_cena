@@ -18,7 +18,7 @@ class ItineraryResource extends Resource
 {
     protected static ?string $model = Itinerary::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+   protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-map';
 
     protected static ?string $recordTitleAttribute = 'intinerario';
 

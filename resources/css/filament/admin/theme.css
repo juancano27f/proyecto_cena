@@ -1,0 +1,34 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+/* Fondo del menú */
+.fi-sidebar {
+    @apply !bg-emerald-800;
+}
+
+/* Forzar texto e iconos en blanco */
+.fi-sidebar .fi-sidebar-item-button,
+.fi-sidebar .fi-sidebar-item-button span,
+.fi-sidebar .fi-sidebar-item-button svg,
+.fi-sidebar .fi-sidebar-group-label {
+    color: white !important;
+    opacity: 1 !important;
+}
+
+/* Hover */
+.fi-sidebar .fi-sidebar-item-button:hover {
+    background-color: rgb(4 120 87) !important; /* emerald-700 */
+}
+
+/* Ítem activo (Dashboard) */
+.fi-sidebar .fi-sidebar-item-active .fi-sidebar-item-button {
+    background-color: rgb(5 150 105) !important; /* emerald-600 */
+    color: white !important;
+}
+
+.fi-sidebar .fi-sidebar-item-active .fi-sidebar-item-button span,
+.fi-sidebar .fi-sidebar-item-active .fi-sidebar-item-button svg {
+    color: white !important;
+}
