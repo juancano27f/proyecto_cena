@@ -30,13 +30,13 @@ class AdminPanelProvider extends PanelProvider
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->login()
             ->colors([
-            'primary' => Color::Teal,      // Color principal (botones, enlaces, etc.)
+            'primary' => Color::Sky,      // Azul que combina con el tema
             'danger'  => Color::Rose,
             'gray'    => Color::Slate,
-            'info'    => Color::Sky,
+            'info'    => Color::Blue,
             'success' => Color::Emerald,
             'warning' => Color::Amber,
-            ])
+        ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
