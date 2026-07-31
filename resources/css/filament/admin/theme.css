@@ -3,32 +3,80 @@
 @source '../../../../app/Filament/**/*';
 @source '../../../../resources/views/filament/**/*';
 
-/* Fondo del menú */
+/* ===== Menú lateral un poco más oscuro ===== */
 .fi-sidebar {
-    @apply !bg-emerald-800;
+    background-color: #0284c7 !important;
 }
 
-/* Forzar texto e iconos en blanco */
+/* Texto e iconos en blanco (se ven perfecto) */
 .fi-sidebar .fi-sidebar-item-button,
-.fi-sidebar .fi-sidebar-item-button span,
-.fi-sidebar .fi-sidebar-item-button svg,
-.fi-sidebar .fi-sidebar-group-label {
-    color: white !important;
+.fi-sidebar .fi-sidebar-item-button span {
+    color: #ffffff !important;
     opacity: 1 !important;
+}
+
+.fi-sidebar .fi-sidebar-item-button svg,
+.fi-sidebar .fi-sidebar-item-button svg path {
+    color: #ffffff !important;
+    stroke: #ffffff !important;
+    fill: none !important;
+    opacity: 1 !important;
+    stroke-width: 1.8 !important;
+    width: 1.4rem !important;
+    height: 1.4rem !important;
 }
 
 /* Hover */
 .fi-sidebar .fi-sidebar-item-button:hover {
-    background-color: rgb(4 120 87) !important; /* emerald-700 */
+    background-color: #0ea5e9 !important;
 }
 
-/* Ítem activo (Dashboard) */
+/* Ítem activo */
 .fi-sidebar .fi-sidebar-item-active .fi-sidebar-item-button {
-    background-color: rgb(5 150 105) !important; /* emerald-600 */
-    color: white !important;
+    background-color: #ffffff !important;
 }
 
-.fi-sidebar .fi-sidebar-item-active .fi-sidebar-item-button span,
-.fi-sidebar .fi-sidebar-item-active .fi-sidebar-item-button svg {
-    color: white !important;
+.fi-sidebar .fi-sidebar-item-active .fi-sidebar-item-button,
+.fi-sidebar .fi-sidebar-item-active .fi-sidebar-item-button span {
+    color: #0369a1 !important;
+}
+
+.fi-sidebar .fi-sidebar-item-active .fi-sidebar-item-button svg,
+.fi-sidebar .fi-sidebar-item-active .fi-sidebar-item-button svg path {
+    color: #0369a1 !important;
+    stroke: #0369a1 !important;
+    fill: none !important;
+}
+
+/* ===== Fondo principal ===== */
+.fi-main,
+.fi-page,
+.fi-body {
+    background-color: #e0f2fe !important;
+}
+
+.fi-topbar {
+    background-color: #bae6fd !important;
+}
+
+/* ===== Tablas y cajas ===== */
+.fi-section,
+.fi-ta-ctn,
+.fi-card,
+.fi-wi-stats-overview-stat {
+    background-color: #7dd3fc !important;
+    color: #0c4a6e !important;
+    border: none !important;
+    border-radius: 0.75rem !important;
+}
+
+.fi-section *,
+.fi-ta-ctn *,
+.fi-card * {
+    color: #0c4a6e !important;
+}
+
+.fi-ta-header-cell {
+    background-color: #38bdf8 !important;
+    color: #0c4a6e !important;
 }
