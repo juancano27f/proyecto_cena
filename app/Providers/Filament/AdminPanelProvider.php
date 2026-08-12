@@ -29,7 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->font('Poppins')
-            ->brandName('Aéreo Plus')
+            ->brandName('Aéreo-Plus')
             ->login()
             ->colors([
             'primary' => Color::Sky,      // Azul que combina con el tema
