@@ -99,11 +99,10 @@ class Trip extends Model
     /**
      * Trip belongs to many students.
      */
-    public function students(): BelongsToMany
-    {
-        return $this->belongsToMany(Student::class)
-                    ->withTimestamps();
-    }
+   public function students()
+{
+    return $this->belongsToMany(Student::class);
+}
 
     /*
     |--------------------------------------------------------------------------

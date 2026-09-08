@@ -55,11 +55,10 @@ class Student extends Model
     /**
      * A student belongs to many trips.
      */
-    public function trips(): BelongsToMany
-    {
-        return $this->belongsToMany(Trip::class)
-                    ->withTimestamps();
-    }
+    public function trips()
+{
+    return $this->belongsToMany(Trip::class);
+}
 
     /**
      * A student can have many documents.
