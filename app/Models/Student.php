@@ -20,14 +20,27 @@ class Student extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = [
-        'institution_id',
-        'first_name',
-        'last_name',
-        'birth_date',
-        'guardian_name',
-        'guardian_phone',
-    ];
+   protected $fillable = [
+    'institution_id',
+    'first_name',
+    'last_name',
+    'birth_date',
+    'guardian_name',
+    'guardian_phone',
+    'document_type',
+    'document_number',
+    'student_phone',
+    'email',
+    'address',
+    'city',
+    'grade',
+    'blood_type',
+    'allergies',
+    'guardian_document',
+    'guardian_email',
+    'emergency_contact_name',
+    'emergency_contact_phone',
+];
 
     /**
      * Attribute casting.
