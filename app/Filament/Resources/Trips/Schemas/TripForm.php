@@ -30,7 +30,14 @@ class TripForm
                     ->required(),
                 TextInput::make('budget')
                     ->numeric(),
-                TextInput::make('status')
+                Select::make('status')
+                    ->label('Estado')
+                    ->options([
+                      'planned' => 'Planificado',
+                      'in_progress' => 'En curso',
+                      'finished' => 'Finalizado',
+                      'cancelled' => 'Cancelado',
+                      ])
                     ->required()
                     ->default('planned'),
                     
