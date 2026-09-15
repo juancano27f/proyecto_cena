@@ -20,6 +20,8 @@ class ItineraryResource extends Resource
 
    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-map';
 
+   protected static ?string $navigationLabel = 'Itinerarios';
+
     protected static ?string $recordTitleAttribute = 'intinerario';
 
     public static function form(Schema $schema): Schema

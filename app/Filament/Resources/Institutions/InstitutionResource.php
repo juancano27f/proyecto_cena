@@ -20,6 +20,8 @@ class InstitutionResource extends Resource
 
    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-building-library';
 
+   protected static ?string $navigationLabel = 'Instituciones';
+
     protected static ?string $recordTitleAttribute = 'instituciones';
 
     public static function form(Schema $schema): Schema

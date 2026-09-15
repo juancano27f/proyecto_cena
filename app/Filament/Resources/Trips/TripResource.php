@@ -20,6 +20,8 @@ class TripResource extends Resource
 
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-globe-alt';
 
+    protected static ?string $navigationLabel = 'Viajes';
+
     protected static ?string $recordTitleAttribute = 'viajes';
 
     public static function form(Schema $schema): Schema

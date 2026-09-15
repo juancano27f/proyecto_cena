@@ -20,6 +20,8 @@ class TripServiceResource extends Resource
 
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-wrench-screwdriver';
 
+    protected static ?string $navigationLabel = 'Servicios de viaje';
+
     protected static ?string $recordTitleAttribute = 'servicios de viajes';
 
     public static function form(Schema $schema): Schema
