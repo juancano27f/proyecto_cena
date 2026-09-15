@@ -3,14 +3,15 @@
 @source '../../../../app/Filament/**/*';
 @source '../../../../resources/views/filament/**/*';
 
-/* ===== Menú lateral un poco más oscuro ===== */
+/* Menú lateral */
 .fi-sidebar {
-    background-color: #0284c7 !important;
+    background-color: #0f4c81 !important;
 }
 
-/* Texto e iconos en blanco (se ven perfecto) */
+/* Texto e iconos normales */
 .fi-sidebar .fi-sidebar-item-button,
-.fi-sidebar .fi-sidebar-item-button span {
+.fi-sidebar .fi-sidebar-item-button span,
+.fi-sidebar .fi-sidebar-item-label {
     color: #ffffff !important;
     opacity: 1 !important;
 }
@@ -20,63 +21,84 @@
     color: #ffffff !important;
     stroke: #ffffff !important;
     fill: none !important;
-    opacity: 1 !important;
-    stroke-width: 1.8 !important;
-    width: 1.4rem !important;
-    height: 1.4rem !important;
 }
 
 /* Hover */
-.fi-sidebar .fi-sidebar-item-button:hover {
-    background-color: #0ea5e9 !important;
+.fi-sidebar .fi-sidebar-item:hover .fi-sidebar-item-button {
+    background-color: #eef4fb !important;
 }
 
-/* Ítem activo */
-.fi-sidebar .fi-sidebar-item-active .fi-sidebar-item-button {
-    background-color: #ffffff !important;
+.fi-sidebar .fi-sidebar-item:hover .fi-sidebar-item-button,
+.fi-sidebar .fi-sidebar-item:hover .fi-sidebar-item-button span,
+.fi-sidebar .fi-sidebar-item:hover .fi-sidebar-item-label {
+    color: #0f4c81 !important;
 }
 
-.fi-sidebar .fi-sidebar-item-active .fi-sidebar-item-button,
-.fi-sidebar .fi-sidebar-item-active .fi-sidebar-item-button span {
-    color: #0369a1 !important;
-}
-
-.fi-sidebar .fi-sidebar-item-active .fi-sidebar-item-button svg,
-.fi-sidebar .fi-sidebar-item-active .fi-sidebar-item-button svg path {
-    color: #0369a1 !important;
-    stroke: #0369a1 !important;
+.fi-sidebar .fi-sidebar-item:hover .fi-sidebar-item-button svg,
+.fi-sidebar .fi-sidebar-item:hover .fi-sidebar-item-button svg path {
+    color: #0f4c81 !important;
+    stroke: #0f4c81 !important;
     fill: none !important;
 }
 
-/* ===== Fondo principal ===== */
+/* Activo: igual que el hover */
+.fi-sidebar .fi-sidebar-item-active .fi-sidebar-item-button,
+.fi-sidebar .fi-sidebar-item.fi-active .fi-sidebar-item-button {
+    background-color: #eef4fb !important;
+}
+
+.fi-sidebar .fi-sidebar-item-active .fi-sidebar-item-button,
+.fi-sidebar .fi-sidebar-item-active .fi-sidebar-item-button span,
+.fi-sidebar .fi-sidebar-item-active .fi-sidebar-item-label,
+.fi-sidebar .fi-sidebar-item.fi-active .fi-sidebar-item-button,
+.fi-sidebar .fi-sidebar-item.fi-active .fi-sidebar-item-button span,
+.fi-sidebar .fi-sidebar-item.fi-active .fi-sidebar-item-label {
+    color: #0f4c81 !important;
+    opacity: 1 !important;
+}
+
+.fi-sidebar .fi-sidebar-item-active .fi-sidebar-item-button svg,
+.fi-sidebar .fi-sidebar-item-active .fi-sidebar-item-button svg path,
+.fi-sidebar .fi-sidebar-item.fi-active .fi-sidebar-item-button svg,
+.fi-sidebar .fi-sidebar-item.fi-active .fi-sidebar-item-button svg path {
+    color: #0f4c81 !important;
+    stroke: #0f4c81 !important;
+    fill: none !important;
+}
+
+/* Fondo y tablas */
 .fi-main,
 .fi-page,
 .fi-body {
-    background-color: #e0f2fe !important;
+    background-color: #f3f6fa !important;
 }
 
 .fi-topbar {
-    background-color: #bae6fd !important;
+    background-color: #ffffff !important;
 }
 
-/* ===== Tablas y cajas ===== */
 .fi-section,
 .fi-ta-ctn,
 .fi-card,
 .fi-wi-stats-overview-stat {
-    background-color: #7dd3fc !important;
-    color: #0c4a6e !important;
-    border: none !important;
-    border-radius: 0.75rem !important;
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    border: 1px solid #dbe3ec !important;
+    border-radius: 0.9rem !important;
+    box-shadow: 0 4px 12px rgba(15, 76, 129, 0.08) !important;
+}
+.fi-btn-primary,
+.fi-btn.fi-color-primary {
+    background-color: #0f4c81 !important;
 }
 
-.fi-section *,
-.fi-ta-ctn *,
-.fi-card * {
-    color: #0c4a6e !important;
-}
-
-.fi-ta-header-cell {
-    background-color: #38bdf8 !important;
-    color: #0c4a6e !important;
+.fi-btn-primary:hover,
+.fi-btn.fi-color-primary:hover {
+    background-color: #0c3d68 !important;
+} 
+.fi-btn-primary,
+.fi-btn-primary span,
+.fi-btn.fi-color-primary,
+.fi-btn.fi-color-primary span {
+    color: #ffffff !important;
 }
