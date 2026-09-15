@@ -20,6 +20,8 @@ class NotificationResource extends Resource
 
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-bell';
 
+    protected static bool $shouldRegisterNavigation = false;
+
     protected static ?string $navigationLabel = 'Notificaciones';
 
     protected static ?string $recordTitleAttribute = 'notificaciones';
