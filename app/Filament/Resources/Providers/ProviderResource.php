@@ -21,6 +21,8 @@ class ProviderResource extends Resource
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-briefcase';
 
     protected static ?string $navigationLabel = 'Proveedores';
+    protected static ?string $modelLabel = 'proveedor';
+    protected static ?string $pluralModelLabel = 'proveedores';
 
     protected static ?string $recordTitleAttribute = 'provedores';
 

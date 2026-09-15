@@ -21,6 +21,8 @@ class InstitutionResource extends Resource
    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-building-library';
 
    protected static ?string $navigationLabel = 'Instituciones';
+   protected static ?string $modelLabel = 'institución';
+   protected static ?string $pluralModelLabel = 'instituciones';
 
     protected static ?string $recordTitleAttribute = 'instituciones';
 

@@ -21,6 +21,8 @@ class TripResource extends Resource
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-globe-alt';
 
     protected static ?string $navigationLabel = 'Viajes';
+    protected static ?string $modelLabel = 'viaje';
+    protected static ?string $pluralModelLabel = 'viajes';
 
     protected static ?string $recordTitleAttribute = 'viajes';
 

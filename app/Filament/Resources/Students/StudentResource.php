@@ -21,6 +21,8 @@ class StudentResource extends Resource
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-academic-cap';
 
     protected static ?string $navigationLabel = 'Estudiantes';
+    protected static ?string $modelLabel = 'estudiante';
+    protected static ?string $pluralModelLabel = 'estudiantes';
 
     protected static ?string $recordTitleAttribute = 'estudiantes';
 

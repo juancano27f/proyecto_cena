@@ -21,6 +21,8 @@ class ItineraryResource extends Resource
    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-map';
 
    protected static ?string $navigationLabel = 'Itinerarios';
+   protected static ?string $modelLabel = 'itinerario';
+   protected static ?string $pluralModelLabel = 'itinerarios';
 
     protected static ?string $recordTitleAttribute = 'intinerario';
 

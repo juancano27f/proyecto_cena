@@ -7,6 +7,8 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Utilities\Get;
+use App\Models\Student;
 
 class TripForm
 {
@@ -15,8 +17,10 @@ class TripForm
         return $schema
             ->components([
                 Select::make('institution_id')
+                    ->label('Institución')
                     ->relationship('institution', 'name')
-                    ->required(),
+                    ->required()
+                    ->live(),
                 Select::make('user_id')
                     ->relationship('user', 'name')
                     ->required(),
@@ -45,10 +49,26 @@ class TripForm
                     ->label('Estudiantes')
                     ->multiple()
                     ->relationship('students', 'first_name')
-                    ->getOptionLabelFromRecordUsing(fn ($record) => $record->first_name . ' ' . $record->last_name)
-                    ->searchable()
-                    ->preload()
-                    ->helperText('Selecciona los estudiantes que van en este viaje'),
+                    ->getOptionLabelFromRecordUsing(
+             fn ($record) => $record->first_name . ' ' . $record->last_name
+        )
+                    ->options(function (Get $get) {
+                $institutionId = $get('institution_id');
+
+            if (!$institutionId) {
+                return [];
+            }
+
+            return Student::query()
+                    ->where('institution_id', $institutionId)
+                    ->get()
+                    ->mapWithKeys(fn ($student) => [
+                $student->id => $student->first_name . ' ' . $student->last_name
             ]);
+    })
+    ->searchable()
+    ->preload()
+    ->helperText('Solo aparecen estudiantes de la institución seleccionada'),
+        ]);
     }
 }

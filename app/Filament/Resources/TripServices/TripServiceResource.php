@@ -21,6 +21,8 @@ class TripServiceResource extends Resource
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-wrench-screwdriver';
 
     protected static ?string $navigationLabel = 'Servicios de viaje';
+    protected static ?string $modelLabel = 'servicio de viaje';
+    protected static ?string $pluralModelLabel = 'servicios de viaje';
 
     protected static ?string $recordTitleAttribute = 'servicios de viajes';
 
