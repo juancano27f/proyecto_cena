@@ -33,6 +33,15 @@ class TripForm
                 TextInput::make('status')
                     ->required()
                     ->default('planned'),
+                    
+                Select::make('students')
+                    ->label('Estudiantes')
+                    ->multiple()
+                    ->relationship('students', 'first_name')
+                    ->getOptionLabelFromRecordUsing(fn ($record) => $record->first_name . ' ' . $record->last_name)
+                    ->searchable()
+                    ->preload()
+                    ->helperText('Selecciona los estudiantes que van en este viaje'),
             ]);
     }
 }
