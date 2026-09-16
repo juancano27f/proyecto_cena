@@ -44,31 +44,44 @@ class TripForm
                       ])
                     ->required()
                     ->default('planned'),
-                    
+                    Select::make('flight_id')
+                    ->label('Vuelo disponible')
+                    ->relationship(
+                      name: 'flight',
+                      titleAttribute: 'destination',
+                      modifyQueryUsing: fn ($query) => $query->where('status', 'available')
+    )
+                    ->getOptionLabelFromRecordUsing(
+                fn ($record) => $record->origin . ' → ' . $record->destination . ' | ' . $record->airline
+    )
+                    ->searchable()
+                    ->preload()
+                    ->helperText('Solo se muestran vuelos disponibles'),
+
                 Select::make('students')
                     ->label('Estudiantes')
                     ->multiple()
                     ->relationship('students', 'first_name')
                     ->getOptionLabelFromRecordUsing(
-             fn ($record) => $record->first_name . ' ' . $record->last_name
-        )
+                fn ($record) => $record->first_name . ' ' . $record->last_name
+    )
                     ->options(function (Get $get) {
-                $institutionId = $get('institution_id');
+                    $institutionId = $get('institution_id');
 
             if (!$institutionId) {
                 return [];
-            }
+        }
 
-            return Student::query()
-                    ->where('institution_id', $institutionId)
-                    ->get()
-                    ->mapWithKeys(fn ($student) => [
+                  return Student::query()
+                   ->where('institution_id', $institutionId)
+                   ->get()
+                   ->mapWithKeys(fn ($student) => [
                 $student->id => $student->first_name . ' ' . $student->last_name
             ]);
     })
-    ->searchable()
-    ->preload()
-    ->helperText('Solo aparecen estudiantes de la institución seleccionada'),
+                   ->searchable()
+                   ->preload()
+                   ->helperText('Solo aparecen estudiantes de la institución seleccionada'),
         ]);
     }
 }

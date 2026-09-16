@@ -23,6 +23,7 @@ class Trip extends Model
     protected $fillable = [
         'institution_id',
         'user_id',
+        'flight_id',
         'teacher_name',
         'title',
         'description',
@@ -57,6 +58,10 @@ class Trip extends Model
         return $this->belongsTo(Institution::class);
     }
 
+    public function flight()
+    {
+        return $this->belongsTo(Flight::class);
+    }
     /**
      * Trip belongs to a user (creator/manager).
      */
