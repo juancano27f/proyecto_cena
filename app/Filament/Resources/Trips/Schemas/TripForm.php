@@ -21,8 +21,8 @@ class TripForm
                     ->relationship('institution', 'name')
                     ->required()
                     ->live(),
-                Select::make('user_id')
-                    ->relationship('user', 'name')
+                TextInput::make('teacher_name')
+                    ->label('Profesor responsable')
                     ->required(),
                 TextInput::make('title')
                     ->required(),
