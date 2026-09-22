@@ -20,6 +20,12 @@ class ProviderResource extends Resource
 
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-briefcase';
 
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+    return parent::getEloquentQuery()
+        ->where('service_type', '!=', 'Guía turístico');
+    }
+
     protected static ?string $navigationLabel = 'Proveedores';
     protected static ?string $modelLabel = 'proveedor';
     protected static ?string $pluralModelLabel = 'proveedores';

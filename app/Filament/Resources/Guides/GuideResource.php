@@ -16,9 +16,9 @@ use Filament\Tables\Table;
 
 class GuideResource extends Resource
 {
-    protected static ?string $model = Guide::class;
+    protected static ?string $model = \App\Models\Provider::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+   protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-user-group';
 
     public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
     { 
