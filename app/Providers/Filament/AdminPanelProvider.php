@@ -32,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->font('Poppins')
             ->brandName('Aéreo-Plus')
             ->login()
+            ->registration()
             ->colors([
             'primary' => Color::Sky,      // Azul que combina con el tema
             'danger'  => Color::Rose,
