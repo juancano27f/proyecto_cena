@@ -28,7 +28,7 @@ class GuideResource extends Resource
     protected static ?string $navigationLabel = 'Guías';
     protected static ?string $modelLabel = 'guía';
     protected static ?string $pluralModelLabel = 'guías';
-
+    
     public static function form(Schema $schema): Schema
     {
         return GuideForm::configure($schema);

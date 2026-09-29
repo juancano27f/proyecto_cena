@@ -43,6 +43,20 @@ class ItineraryResource extends Resource
         ];
     }
 
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+    $query = parent::getEloquentQuery();
+    $user = auth()->user();
+
+    if ($user && $user->isRector()) {
+        $query->whereHas('trip', function ($q) use ($user) {
+            $q->where('institution_id', $user->institution_id);
+        });
+    }
+
+    return $query;
+    }
+
     public static function getPages(): array
     {
         return [

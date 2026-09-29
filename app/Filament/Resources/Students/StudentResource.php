@@ -43,6 +43,18 @@ class StudentResource extends Resource
         ];
     }
 
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        $query = parent::getEloquentQuery();
+        $user = auth()->user();
+
+        if ($user && $user->isRector()) {
+            $query->where('institution_id', $user->institution_id);
+    }
+
+        return $query;
+    }
+
     public static function getPages(): array
     {
         return [

@@ -20,7 +20,10 @@ class TripForm
                     ->label('Institución')
                     ->relationship('institution', 'name')
                     ->required()
-                    ->live(),
+                    ->live()
+                    ->default(fn () => auth()->user()?->isRector() ? auth()->user()->institution_id : null)
+                    ->disabled(fn () => auth()->user()?->isRector())
+                    ->dehydrated(),
                 TextInput::make('teacher_name')
                     ->label('Profesor responsable')
                     ->required(),
