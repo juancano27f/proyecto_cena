@@ -23,6 +23,15 @@ class UserForm
                 TextInput::make('password')
                     ->password()
                     ->required(),
+
+                Select::make('role')
+                    ->label('Rol')
+                    ->options([
+                'admin' => 'Administrador',
+                'rector' => 'Rector',
+    ])
+                    ->required()
+                    ->default('rector'),
             ]);
-    }
+        }    
 }
