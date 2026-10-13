@@ -11,7 +11,6 @@ use App\Models\Trip;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class TripResource extends Resource
@@ -19,12 +18,19 @@ class TripResource extends Resource
     protected static ?string $model = Trip::class;
 
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-globe-alt';
-
     protected static ?string $navigationLabel = 'Viajes';
     protected static ?string $modelLabel = 'viaje';
     protected static ?string $pluralModelLabel = 'viajes';
 
-    protected static ?string $recordTitleAttribute = 'viajes';
+    public static function canViewAny(): bool
+    {
+        return auth()->check();
+    }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return auth()->check();
+    }
 
     public static function form(Schema $schema): Schema
     {
@@ -36,23 +42,21 @@ class TripResource extends Resource
         return TripsTable::configure($table);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
     public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
     {
-    $query = parent::getEloquentQuery();
-    $user = auth()->user();
+        $query = parent::getEloquentQuery();
+        $user = auth()->user();
 
-    if ($user && $user->isRector()) {
-        $query->where('institution_id', $user->institution_id);
+        if ($user && $user->isRector() && $user->institution_id) {
+            $query->where('institution_id', $user->institution_id);
+        }
+
+        return $query;
     }
 
-    return $query;
+    public static function getRelations(): array
+    {
+        return [];
     }
 
     public static function getPages(): array

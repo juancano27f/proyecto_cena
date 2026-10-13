@@ -11,20 +11,26 @@ use App\Models\Institution;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class InstitutionResource extends Resource
 {
     protected static ?string $model = Institution::class;
 
-   protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-building-library';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-building-library';
+    protected static ?string $navigationLabel = 'Instituciones';
+    protected static ?string $modelLabel = 'institución';
+    protected static ?string $pluralModelLabel = 'instituciones';
 
-   protected static ?string $navigationLabel = 'Instituciones';
-   protected static ?string $modelLabel = 'institución';
-   protected static ?string $pluralModelLabel = 'instituciones';
+    public static function canViewAny(): bool
+    {
+        return auth()->check();
+    }
 
-    protected static ?string $recordTitleAttribute = 'instituciones';
+    public static function shouldRegisterNavigation(): bool
+    {
+        return auth()->check();
+    }
 
     public static function form(Schema $schema): Schema
     {
@@ -38,19 +44,7 @@ class InstitutionResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
-    }
-
-    public static function canViewAny(): bool
-    {
-        return auth()->user()?->isAdmin() ?? false;
-    }
-
-    public static function shouldRegisterNavigation(): bool
-    {
-        return auth()->user()?->isAdmin() ?? false;
+        return [];
     }
 
     public static function getPages(): array

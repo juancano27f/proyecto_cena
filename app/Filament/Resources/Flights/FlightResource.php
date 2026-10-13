@@ -18,7 +18,6 @@ class FlightResource extends Resource
     protected static ?string $model = Flight::class;
 
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-paper-airplane';
-
     protected static ?string $navigationLabel = 'Vuelos';
     protected static ?string $modelLabel = 'vuelo';
     protected static ?string $pluralModelLabel = 'vuelos';
@@ -65,9 +64,7 @@ class FlightResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array

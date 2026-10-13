@@ -11,7 +11,6 @@ use App\Models\Student;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class StudentResource extends Resource
@@ -19,12 +18,19 @@ class StudentResource extends Resource
     protected static ?string $model = Student::class;
 
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-academic-cap';
-
     protected static ?string $navigationLabel = 'Estudiantes';
     protected static ?string $modelLabel = 'estudiante';
     protected static ?string $pluralModelLabel = 'estudiantes';
 
-    protected static ?string $recordTitleAttribute = 'estudiantes';
+    public static function canViewAny(): bool
+    {
+        return auth()->check();
+    }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return auth()->check();
+    }
 
     public static function form(Schema $schema): Schema
     {
@@ -36,23 +42,21 @@ class StudentResource extends Resource
         return StudentsTable::configure($table);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
     public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
     {
         $query = parent::getEloquentQuery();
         $user = auth()->user();
 
-        if ($user && $user->isRector()) {
+        if ($user && $user->isRector() && $user->institution_id) {
             $query->where('institution_id', $user->institution_id);
-    }
+        }
 
         return $query;
+    }
+
+    public static function getRelations(): array
+    {
+        return [];
     }
 
     public static function getPages(): array
