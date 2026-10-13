@@ -11,35 +11,18 @@ use App\Models\Flight;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class FlightResource extends Resource
 {
     protected static ?string $model = Flight::class;
 
-   protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-paper-airplane';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-paper-airplane';
 
     protected static ?string $navigationLabel = 'Vuelos';
     protected static ?string $modelLabel = 'vuelo';
     protected static ?string $pluralModelLabel = 'vuelos';
 
-    public static function form(Schema $schema): Schema
-    {
-        return FlightForm::configure($schema);
-    }
-
-    public static function table(Table $table): Table
-    {
-        return FlightsTable::configure($table);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
     public static function canViewAny(): bool
     {
         return auth()->check();
@@ -63,6 +46,28 @@ class FlightResource extends Resource
     public static function canDelete($record): bool
     {
         return auth()->user()?->isAdmin() ?? false;
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return auth()->user()?->isAdmin() ?? false;
+    }
+
+    public static function form(Schema $schema): Schema
+    {
+        return FlightForm::configure($schema);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return FlightsTable::configure($table);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
     }
 
     public static function getPages(): array
