@@ -12,6 +12,10 @@ class ListFlights extends ListRecords
 
     protected function getHeaderActions(): array
     {
+        if (! auth()->user()?->isAdmin()) {
+            return [];
+        }
+
         return [
             CreateAction::make(),
         ];
