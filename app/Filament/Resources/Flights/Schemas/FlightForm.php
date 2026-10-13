@@ -6,6 +6,7 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
+use App\Models\Provider;
 
 class FlightForm
 {
@@ -13,16 +14,46 @@ class FlightForm
     {
         return $schema
             ->components([
-                TextInput::make('airline')
+                Select::make('airline')
                     ->label('Aerolínea')
-                    ->required(),
-
-                TextInput::make('origin')
+                    ->options(
+                Provider::query()
+                    ->where('service_type', 'Aerolínea')
+                    ->pluck('name', 'name')
+    )
+                    ->searchable()
+                    ->required()
+                    ->helperText('Solo aparecen aerolíneas registradas'),
+               Select::make('origin')
                     ->label('Origen')
+                    ->options([
+                    'Bogotá' => 'Bogotá',
+                    'Medellín' => 'Medellín',
+                    'Cali' => 'Cali',
+                    'Barranquilla' => 'Barranquilla',
+                    'Cartagena' => 'Cartagena',
+                    'Santa Marta' => 'Santa Marta',
+                    'San Andrés' => 'San Andrés',
+                    'Pereira' => 'Pereira',
+                    'Bucaramanga' => 'Bucaramanga',
+        ])
+                    ->searchable()
                     ->required(),
 
-                TextInput::make('destination')
+               Select::make('destination')
                     ->label('Destino')
+                    ->options([
+                    'Bogotá' => 'Bogotá',
+                    'Medellín' => 'Medellín',
+                    'Cali' => 'Cali',
+                    'Barranquilla' => 'Barranquilla',
+                    'Cartagena' => 'Cartagena',
+                    'Santa Marta' => 'Santa Marta',
+                    'San Andrés' => 'San Andrés',
+                    'Pereira' => 'Pereira',
+                    'Bucaramanga' => 'Bucaramanga',
+        ])
+                    ->searchable()
                     ->required(),
 
                 DatePicker::make('departure_date')

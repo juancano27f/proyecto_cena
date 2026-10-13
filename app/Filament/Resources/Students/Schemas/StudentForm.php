@@ -46,8 +46,13 @@ class StudentForm
                     ->label('Número de documento')
                     ->required(),
 
-                TextInput::make('grade')
-                    ->label('Grado / Curso'),
+                Select::make('grade')
+                    ->label('Grado')
+                    ->options([
+                        '10' => '10°',
+                        '11' => '11°',
+        ])
+                    ->required(),
 
                 TextInput::make('student_phone')
                     ->label('Teléfono del estudiante')
