@@ -16,4 +16,11 @@ class EditGuide extends EditRecord
             DeleteAction::make(),
         ];
     }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        $data['service_type'] = 'Guía turístico';
+
+        return $data;
+    }
 }

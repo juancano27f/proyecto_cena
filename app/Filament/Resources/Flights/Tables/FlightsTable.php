@@ -5,8 +5,8 @@ namespace App\Filament\Resources\Flights\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 
 class FlightsTable
 {
@@ -14,42 +14,45 @@ class FlightsTable
     {
         return $table
             ->columns([
-               TextColumn::make('airline')
-            ->label('Aerolínea')
-            ->searchable(),
+                TextColumn::make('airline')
+                    ->label('Aerolínea')
+                    ->searchable(),
 
                 TextColumn::make('origin')
-            ->label('Origen'),
+                    ->label('Origen'),
 
                 TextColumn::make('destination')
-            ->label('Destino'),
+                    ->label('Destino'),
 
                 TextColumn::make('departure_date')
-            ->label('Fecha')
-            ->date(),
+                    ->label('Fecha')
+                    ->date(),
 
                 TextColumn::make('departure_time')
-            ->label('Hora'),
+                    ->label('Hora'),
 
                 TextColumn::make('seats')
-            ->label('Cupos'),
+                    ->label('Cupos'),
 
                 TextColumn::make('price')
-            ->label('Precio'),
+                    ->label('Precio'),
 
                 TextColumn::make('status')
-            ->label('Estado')
-            ->badge(),
+                    ->label('Estado')
+                    ->badge(),
             ])
             ->filters([
                 //
             ])
+            ->recordUrl(null)
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()
+                    ->visible(fn () => auth()->user()?->isAdmin() ?? false),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    DeleteBulkAction::make()
+                        ->visible(fn () => auth()->user()?->isAdmin() ?? false),
                 ]),
             ]);
     }

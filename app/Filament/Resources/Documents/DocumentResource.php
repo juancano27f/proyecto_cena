@@ -26,6 +26,16 @@ class DocumentResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'documentos';
 
+    public static function canViewAny(): bool
+    {
+    return false;
+    }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+    return false;
+    }
+
     public static function form(Schema $schema): Schema
     {
         return DocumentForm::configure($schema);

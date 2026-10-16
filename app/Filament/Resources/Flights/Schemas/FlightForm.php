@@ -2,11 +2,12 @@
 
 namespace App\Filament\Resources\Flights\Schemas;
 
+use App\Models\Provider;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
-use App\Models\Provider;
 
 class FlightForm
 {
@@ -17,42 +18,42 @@ class FlightForm
                 Select::make('airline')
                     ->label('Aerolínea')
                     ->options(
-                Provider::query()
-                    ->where('service_type', 'Aerolínea')
-                    ->pluck('name', 'name')
-    )
-                    ->searchable()
-                    ->required()
-                    ->helperText('Solo aparecen aerolíneas registradas'),
-               Select::make('origin')
-                    ->label('Origen')
-                    ->options([
-                    'Bogotá' => 'Bogotá',
-                    'Medellín' => 'Medellín',
-                    'Cali' => 'Cali',
-                    'Barranquilla' => 'Barranquilla',
-                    'Cartagena' => 'Cartagena',
-                    'Santa Marta' => 'Santa Marta',
-                    'San Andrés' => 'San Andrés',
-                    'Pereira' => 'Pereira',
-                    'Bucaramanga' => 'Bucaramanga',
-        ])
+                        Provider::query()
+                            ->where('service_type', 'Aerolínea')
+                            ->pluck('name', 'name')
+                    )
                     ->searchable()
                     ->required(),
 
-               Select::make('destination')
+                Select::make('origin')
+                    ->label('Origen')
+                    ->options([
+                        'Bogotá' => 'Bogotá',
+                        'Medellín' => 'Medellín',
+                        'Cali' => 'Cali',
+                        'Barranquilla' => 'Barranquilla',
+                        'Cartagena' => 'Cartagena',
+                        'Santa Marta' => 'Santa Marta',
+                        'San Andrés' => 'San Andrés',
+                        'Pereira' => 'Pereira',
+                        'Bucaramanga' => 'Bucaramanga',
+                    ])
+                    ->searchable()
+                    ->required(),
+
+                Select::make('destination')
                     ->label('Destino')
                     ->options([
-                    'Bogotá' => 'Bogotá',
-                    'Medellín' => 'Medellín',
-                    'Cali' => 'Cali',
-                    'Barranquilla' => 'Barranquilla',
-                    'Cartagena' => 'Cartagena',
-                    'Santa Marta' => 'Santa Marta',
-                    'San Andrés' => 'San Andrés',
-                    'Pereira' => 'Pereira',
-                    'Bucaramanga' => 'Bucaramanga',
-        ])
+                        'Bogotá' => 'Bogotá',
+                        'Medellín' => 'Medellín',
+                        'Cali' => 'Cali',
+                        'Barranquilla' => 'Barranquilla',
+                        'Cartagena' => 'Cartagena',
+                        'Santa Marta' => 'Santa Marta',
+                        'San Andrés' => 'San Andrés',
+                        'Pereira' => 'Pereira',
+                        'Bucaramanga' => 'Bucaramanga',
+                    ])
                     ->searchable()
                     ->required(),
 
@@ -82,6 +83,23 @@ class FlightForm
                     ])
                     ->required()
                     ->default('available'),
+
+                Select::make('guide_name')
+                    ->label('Guía del paquete')
+                    ->options(
+                        Provider::query()
+                            ->where('service_type', 'Guía turístico')
+                            ->pluck('name', 'name')
+                    )
+                    ->searchable()
+                    ->preload()
+                    ->helperText('Guía turístico asignado al paquete'),
+
+                Textarea::make('itinerary')
+                    ->label('Recorrido del paquete')
+                    ->rows(6)
+                    ->columnSpanFull()
+                    ->helperText('Plan de días del viaje turístico'),
             ]);
     }
 }

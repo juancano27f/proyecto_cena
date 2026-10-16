@@ -11,20 +11,28 @@ use App\Models\Itinerary;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class ItineraryResource extends Resource
 {
     protected static ?string $model = Itinerary::class;
 
-   protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-map';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-map';
 
-   protected static ?string $navigationLabel = 'Itinerarios';
-   protected static ?string $modelLabel = 'itinerario';
-   protected static ?string $pluralModelLabel = 'itinerarios';
+    protected static ?string $navigationLabel = 'Itinerarios';
+    protected static ?string $modelLabel = 'itinerario';
+    protected static ?string $pluralModelLabel = 'itinerarios';
+    protected static ?string $recordTitleAttribute = 'itinerario';
 
-    protected static ?string $recordTitleAttribute = 'intinerario';
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->isAdmin() ?? false;
+    }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return auth()->user()?->isAdmin() ?? false;
+    }
 
     public static function form(Schema $schema): Schema
     {
@@ -38,23 +46,7 @@ class ItineraryResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
-    }
-
-    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
-    {
-    $query = parent::getEloquentQuery();
-    $user = auth()->user();
-
-    if ($user && $user->isRector()) {
-        $query->whereHas('trip', function ($q) use ($user) {
-            $q->where('institution_id', $user->institution_id);
-        });
-    }
-
-    return $query;
+        return [];
     }
 
     public static function getPages(): array

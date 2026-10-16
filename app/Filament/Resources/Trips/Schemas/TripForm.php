@@ -28,15 +28,26 @@ class TripForm
                     ->label('Profesor responsable')
                     ->required(),
                 TextInput::make('title')
+                    ->label('Título del viaje')
                     ->required(),
+
                 Textarea::make('description')
+                    ->label('Descripción')
                     ->columnSpanFull(),
+
                 DatePicker::make('start_date')
+                    ->label('Fecha de salida')
                     ->required(),
+
                 DatePicker::make('end_date')
-                    ->required(),
-                TextInput::make('budget')
-                    ->numeric(),
+                    ->label('Fecha de regreso')
+                     ->required(),
+               TextInput::make('budget')
+                    ->label('Presupuesto')
+                    ->numeric()
+                    ->disabled()
+                    ->dehydrated(false)
+                    ->helperText('El valor lo define el paquete de vuelo seleccionado'),
                 Select::make('status')
                     ->label('Estado')
                     ->options([

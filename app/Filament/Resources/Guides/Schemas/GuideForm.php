@@ -1,5 +1,10 @@
 <?php
 
+namespace App\Filament\Resources\Guides\Schemas;
+
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Schema;
+
 class GuideForm
 {
     public static function configure(Schema $schema): Schema
@@ -12,6 +17,7 @@ class GuideForm
 
                 TextInput::make('service_type')
                     ->default('Guía turístico')
+                    ->dehydrated()
                     ->hidden(),
 
                 TextInput::make('email')

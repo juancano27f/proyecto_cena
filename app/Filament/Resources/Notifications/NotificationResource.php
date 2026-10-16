@@ -45,14 +45,13 @@ class NotificationResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return auth()->user()?->isAdmin() ?? false;
+    return false;
     }
 
     public static function shouldRegisterNavigation(): bool
     {
-        return auth()->user()?->isAdmin() ?? false;
+    return false;
     }
-
     public static function getPages(): array
     {
         return [

@@ -15,6 +15,8 @@ class Flight extends Model
         'seats',
         'price',
         'status',
+        'itinerary',
+        'guide_name',
     ];
 
     protected $casts = [
