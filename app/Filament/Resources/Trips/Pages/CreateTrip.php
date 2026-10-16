@@ -3,9 +3,26 @@
 namespace App\Filament\Resources\Trips\Pages;
 
 use App\Filament\Resources\Trips\TripResource;
+use App\Models\Flight;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateTrip extends CreateRecord
 {
     protected static string $resource = TripResource::class;
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['user_id'] = auth()->id();
+
+        if (!empty($data['flight_id'])) {
+            $flight = Flight::find($data['flight_id']);
+
+            if ($flight && $flight->departure_date) {
+                $data['start_date'] = $flight->departure_date;
+                $data['end_date'] = $flight->departure_date;
+            }
+        }
+
+        return $data;
+    }
 }

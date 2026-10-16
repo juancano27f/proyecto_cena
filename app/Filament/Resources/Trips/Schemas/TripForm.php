@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\Trips\Schemas;
 
+use App\Models\Flight;
 use App\Models\Student;
-use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
@@ -37,14 +37,6 @@ class TripForm
                     ->label('Descripción')
                     ->columnSpanFull(),
 
-                DatePicker::make('start_date')
-                    ->label('Fecha de salida')
-                    ->required(),
-
-                DatePicker::make('end_date')
-                    ->label('Fecha de regreso')
-                    ->required(),
-
                 Select::make('status')
                     ->label('Estado')
                     ->options([
@@ -63,12 +55,17 @@ class TripForm
                         titleAttribute: 'destination',
                         modifyQueryUsing: fn ($query) => $query->where('status', 'available')
                     )
-                    ->getOptionLabelFromRecordUsing(
-                        fn ($record) => $record->origin . ' → ' . $record->destination . ' | ' . $record->airline
-                    )
+                    ->getOptionLabelFromRecordUsing(function ($record) {
+                        $fecha = $record->departure_date
+                            ? $record->departure_date->format('d/m/Y')
+                            : 'Sin fecha';
+
+                        return $record->origin . ' → ' . $record->destination . ' | ' . $record->airline . ' | ' . $fecha;
+                    })
                     ->searchable()
                     ->preload()
-                    ->helperText('El precio y el recorrido ya vienen en el paquete'),
+                    ->required()
+                    ->helperText('Al elegir el paquete se usan su fecha, precio y recorrido'),
 
                 Select::make('students')
                     ->label('Estudiantes')

@@ -32,6 +32,39 @@ class InstitutionResource extends Resource
         return auth()->check();
     }
 
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->isAdmin() ?? false;
+    }
+
+    public static function canEdit($record): bool
+    {
+        $user = auth()->user();
+
+        if ($user?->isAdmin()) {
+            return true;
+        }
+
+        return $user?->isRector() && $user->institution_id === $record->id;
+    }
+
+    public static function canDelete($record): bool
+    {
+        return auth()->user()?->isAdmin() ?? false;
+    }
+
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        $query = parent::getEloquentQuery();
+        $user = auth()->user();
+
+        if ($user && $user->isRector()) {
+            $query->where('id', $user->institution_id);
+        }
+
+        return $query;
+    }
+
     public static function form(Schema $schema): Schema
     {
         return InstitutionForm::configure($schema);
