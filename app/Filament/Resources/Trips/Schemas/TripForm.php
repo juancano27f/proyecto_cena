@@ -2,13 +2,13 @@
 
 namespace App\Filament\Resources\Trips\Schemas;
 
+use App\Models\Student;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
-use Filament\Schemas\Schema;
 use Filament\Schemas\Components\Utilities\Get;
-use App\Models\Student;
+use Filament\Schemas\Schema;
 
 class TripForm
 {
@@ -24,9 +24,11 @@ class TripForm
                     ->default(fn () => auth()->user()?->isRector() ? auth()->user()->institution_id : null)
                     ->disabled(fn () => auth()->user()?->isRector())
                     ->dehydrated(),
+
                 TextInput::make('teacher_name')
                     ->label('Profesor responsable')
                     ->required(),
+
                 TextInput::make('title')
                     ->label('Título del viaje')
                     ->required(),
@@ -41,61 +43,57 @@ class TripForm
 
                 DatePicker::make('end_date')
                     ->label('Fecha de regreso')
-                     ->required(),
-               TextInput::make('budget')
-                    ->label('Presupuesto')
-                    ->numeric()
-                    ->disabled()
-                    ->dehydrated(false)
-                    ->helperText('El valor lo define el paquete de vuelo seleccionado'),
+                    ->required(),
+
                 Select::make('status')
                     ->label('Estado')
                     ->options([
-                      'planned' => 'Planificado',
-                      'in_progress' => 'En curso',
-                      'finished' => 'Finalizado',
-                      'cancelled' => 'Cancelado',
-                      ])
+                        'planned' => 'Planificado',
+                        'in_progress' => 'En curso',
+                        'finished' => 'Finalizado',
+                        'cancelled' => 'Cancelado',
+                    ])
                     ->required()
                     ->default('planned'),
-                    Select::make('flight_id')
-                    ->label('Vuelo disponible')
+
+                Select::make('flight_id')
+                    ->label('Paquete / Vuelo disponible')
                     ->relationship(
-                      name: 'flight',
-                      titleAttribute: 'destination',
-                      modifyQueryUsing: fn ($query) => $query->where('status', 'available')
-    )
+                        name: 'flight',
+                        titleAttribute: 'destination',
+                        modifyQueryUsing: fn ($query) => $query->where('status', 'available')
+                    )
                     ->getOptionLabelFromRecordUsing(
-                fn ($record) => $record->origin . ' → ' . $record->destination . ' | ' . $record->airline
-    )
+                        fn ($record) => $record->origin . ' → ' . $record->destination . ' | ' . $record->airline
+                    )
                     ->searchable()
                     ->preload()
-                    ->helperText('Solo se muestran vuelos disponibles'),
+                    ->helperText('El precio y el recorrido ya vienen en el paquete'),
 
                 Select::make('students')
                     ->label('Estudiantes')
                     ->multiple()
                     ->relationship('students', 'first_name')
                     ->getOptionLabelFromRecordUsing(
-                fn ($record) => $record->first_name . ' ' . $record->last_name
-    )
+                        fn ($record) => $record->first_name . ' ' . $record->last_name
+                    )
                     ->options(function (Get $get) {
-                    $institutionId = $get('institution_id');
+                        $institutionId = $get('institution_id');
 
-            if (!$institutionId) {
-                return [];
-        }
+                        if (!$institutionId) {
+                            return [];
+                        }
 
-                  return Student::query()
-                   ->where('institution_id', $institutionId)
-                   ->get()
-                   ->mapWithKeys(fn ($student) => [
-                $student->id => $student->first_name . ' ' . $student->last_name
+                        return Student::query()
+                            ->where('institution_id', $institutionId)
+                            ->get()
+                            ->mapWithKeys(fn ($student) => [
+                                $student->id => $student->first_name . ' ' . $student->last_name
+                            ]);
+                    })
+                    ->searchable()
+                    ->preload()
+                    ->helperText('Solo aparecen estudiantes de la institución seleccionada'),
             ]);
-    })
-                   ->searchable()
-                   ->preload()
-                   ->helperText('Solo aparecen estudiantes de la institución seleccionada'),
-        ]);
     }
 }
