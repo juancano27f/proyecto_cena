@@ -12,13 +12,19 @@ class InstitutionForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label('Nombre')
                     ->required(),
+
                 TextInput::make('email')
-                    ->label('Email address')
+                    ->label('Correo electrónico')
                     ->email(),
+
                 TextInput::make('phone')
+                    ->label('Teléfono')
                     ->tel(),
-                TextInput::make('address'),
+
+                TextInput::make('address')
+                    ->label('Dirección'),
             ]);
     }
 }
