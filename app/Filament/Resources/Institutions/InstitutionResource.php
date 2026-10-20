@@ -18,18 +18,19 @@ class InstitutionResource extends Resource
     protected static ?string $model = Institution::class;
 
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-building-library';
+
     protected static ?string $navigationLabel = 'Instituciones';
     protected static ?string $modelLabel = 'institución';
     protected static ?string $pluralModelLabel = 'instituciones';
 
     public static function canViewAny(): bool
     {
-        return auth()->check();
+        return auth()->user()?->isAdmin() ?? false;
     }
 
     public static function shouldRegisterNavigation(): bool
     {
-        return auth()->check();
+        return auth()->user()?->isAdmin() ?? false;
     }
 
     public static function canCreate(): bool
@@ -39,30 +40,12 @@ class InstitutionResource extends Resource
 
     public static function canEdit($record): bool
     {
-        $user = auth()->user();
-
-        if ($user?->isAdmin()) {
-            return true;
-        }
-
-        return $user?->isRector() && $user->institution_id === $record->id;
+        return auth()->user()?->isAdmin() ?? false;
     }
 
     public static function canDelete($record): bool
     {
         return auth()->user()?->isAdmin() ?? false;
-    }
-
-    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
-    {
-        $query = parent::getEloquentQuery();
-        $user = auth()->user();
-
-        if ($user && $user->isRector()) {
-            $query->where('id', $user->institution_id);
-        }
-
-        return $query;
     }
 
     public static function form(Schema $schema): Schema

@@ -2,27 +2,21 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Institution;
 
-#[Fillable(['name', 'email', 'password','role','institution_id'])]
+#[Fillable(['name', 'email', 'password', 'role_id', 'institution_id'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -30,17 +24,32 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function userRole(): BelongsTo
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function institution(): BelongsTo
+    {
+        return $this->belongsTo(Institution::class);
+    }
+
     public function isAdmin(): bool
     {
-    return $this->role === 'admin';
+        if ($this->role_id) {
+            return $this->userRole?->name === 'admin';
+        }
+
+        return ($this->attributes['role'] ?? null) === 'admin';
     }
 
     public function isRector(): bool
     {
-    return $this->role === 'rector';
-    }
-    public function institution()
-    {
-    return $this->belongsTo(Institution::class);
+        if ($this->role_id) {
+            return $this->userRole?->name === 'rector';
+        }
+
+        return ($this->attributes['role'] ?? null) === 'rector';
     }
 }
